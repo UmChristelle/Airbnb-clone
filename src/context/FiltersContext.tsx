@@ -1,11 +1,10 @@
-
 import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { FilterState } from '../types';
 
 const defaultFilters: FilterState = {
   minPrice: 0,
-  maxPrice: 1000,
+  maxPrice: 10000,
   minRating: 0,
   location: '',
   searchQuery: '',

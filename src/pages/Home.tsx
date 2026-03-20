@@ -63,7 +63,7 @@ export default function Home() {
             return (
               <button
                 key={dest.placeId}
-                onClick={() => setFilters({ location: dest.placeId })}
+                onClick={() => setFilters({ location: dest.placeId, searchQuery: '' })}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-medium whitespace-nowrap transition-all ${
                   activePlaceId === dest.placeId
                     ? 'bg-rose-500 text-white border-rose-500 shadow-md'

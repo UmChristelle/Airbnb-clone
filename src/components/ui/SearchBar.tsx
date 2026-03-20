@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Search } from 'lucide-react';
 import { useFilters } from '../../context/FiltersContext';
@@ -12,6 +11,13 @@ export default function SearchBar() {
     setFilters({ searchQuery: value });
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    if (e.target.value === '') {
+      setFilters({ searchQuery: '' });
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="flex items-center w-full max-w-xl">
       <div className="flex items-center w-full bg-white border-2 border-gray-200 rounded-full px-4 py-2.5 shadow-sm hover:shadow-md transition-shadow gap-3">
@@ -19,7 +25,7 @@ export default function SearchBar() {
         <input
           type="text"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={handleChange}
           placeholder="Search destinations..."
           className="flex-1 outline-none text-sm text-gray-700 placeholder-gray-400 bg-transparent"
         />

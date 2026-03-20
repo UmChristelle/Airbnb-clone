@@ -1,4 +1,3 @@
-
 import { useFilters } from '../../context/FiltersContext';
 import { SlidersHorizontal, X } from 'lucide-react';
 
@@ -24,7 +23,7 @@ export default function FilterPanel() {
       {/* Price Range */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-3">
-          Price range
+          Price range (per night)
         </label>
         <div className="flex items-center gap-3">
           <div className="flex-1">
@@ -40,7 +39,7 @@ export default function FilterPanel() {
               />
             </div>
           </div>
-          <span className="text-gray-300 mt-5">â€”</span>
+          <span className="text-gray-300 mt-5">—</span>
           <div className="flex-1">
             <label className="text-xs text-gray-400 mb-1 block">Max</label>
             <div className="flex items-center border border-gray-200 rounded-xl px-3 py-2">
@@ -51,6 +50,7 @@ export default function FilterPanel() {
                 onChange={(e) => setFilters({ maxPrice: Number(e.target.value) })}
                 className="w-full outline-none text-sm text-gray-700"
                 min={0}
+                max={50000}
               />
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function FilterPanel() {
           value={filters.location}
           onChange={(e) => setFilters({ location: e.target.value })}
           placeholder="Any location"
-          className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 outline-none focus:border-rose-300 transition-colors"
+          className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 outline-none focus:border-rose-400 transition-colors"
         />
       </div>
     </div>

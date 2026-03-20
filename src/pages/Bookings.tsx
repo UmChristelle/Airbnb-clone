@@ -1,7 +1,7 @@
 import { useBookingStore } from '../store/useBookingStore';
 import { useAuthStore } from '../store/useAuthStore';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, Users, X, CheckCircle, Clock, XCircle } from 'lucide-react';
+import { Calendar, Users, X, CheckCircle, Clock, XCircle, Lock, Home } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const statusConfig = {
@@ -18,7 +18,9 @@ export default function Bookings() {
   if (!isAuthenticated) {
     return (
       <div className="text-center py-20">
-        <div className="text-5xl mb-4">ðŸ”’</div>
+        <div className="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Lock className="w-8 h-8 text-rose-300" />
+        </div>
         <h2 className="text-xl font-semibold text-gray-700 mb-2">Login required</h2>
         <p className="text-gray-400 text-sm mb-6">You need to be logged in to view your bookings</p>
         <button onClick={() => navigate('/login')}
@@ -38,12 +40,16 @@ export default function Bookings() {
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Your bookings</h1>
-        <p className="text-gray-400 text-sm mt-1">{bookings.length} booking{bookings.length !== 1 ? 's' : ''} total</p>
+        <p className="text-gray-400 text-sm mt-1">
+          {bookings.length} booking{bookings.length !== 1 ? 's' : ''} total
+        </p>
       </div>
 
       {bookings.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-3xl border border-gray-100">
-          <div className="text-5xl mb-4">ðŸ¡</div>
+          <div className="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Home className="w-8 h-8 text-rose-300" />
+          </div>
           <h3 className="text-lg font-semibold text-gray-700 mb-2">No bookings yet</h3>
           <p className="text-gray-400 text-sm mb-6">Start exploring and book your perfect stay</p>
           <button onClick={() => navigate('/')}
@@ -57,12 +63,19 @@ export default function Bookings() {
             const status = statusConfig[booking.status];
             const StatusIcon = status.icon;
             return (
-              <div key={booking.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+              <div key={booking.id}
+                className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                 <div className="flex flex-col sm:flex-row">
                   <div className="w-full sm:w-40 h-40 sm:h-auto shrink-0">
-                    <img src={booking.listingImage || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400'}
-                      alt={booking.listingName} className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400'; }} />
+                    <img
+                      src={booking.listingImage || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400'}
+                      alt={booking.listingName}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400';
+                      }}
+                    />
                   </div>
                   <div className="flex-1 p-5">
                     <div className="flex items-start justify-between gap-3 mb-3">
@@ -75,7 +88,7 @@ export default function Bookings() {
                     <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
                       <div className="flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-rose-400" />
-                        <span>{booking.checkIn} â†’ {booking.checkOut}</span>
+                        <span>{booking.checkIn} → {booking.checkOut}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <Users className="w-3.5 h-3.5 text-rose-400" />

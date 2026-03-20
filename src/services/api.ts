@@ -1,8 +1,7 @@
-
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: '/api',
   headers: {
     'x-rapidapi-key': import.meta.env.VITE_RAPID_API_KEY,
     'x-rapidapi-host': import.meta.env.VITE_RAPID_API_HOST,

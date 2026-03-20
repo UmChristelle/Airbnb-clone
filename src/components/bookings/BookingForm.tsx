@@ -128,7 +128,7 @@ export default function BookingForm({ listing }: BookingFormProps) {
       {nights > 0 && (
         <div className="bg-gray-50 rounded-xl p-4 mb-4 space-y-2">
           <div className="flex justify-between text-sm text-gray-600">
-            <span>${listing.price} × {nights} night{nights !== 1 ? 's' : ''}</span>
+            <span>${listing.price} Ã— {nights} night{nights !== 1 ? 's' : ''}</span>
             <span>${totalPrice}</span>
           </div>
           <div className="flex justify-between text-sm text-gray-600">

@@ -40,7 +40,7 @@ export default function FilterPanel() {
               />
             </div>
           </div>
-          <span className="text-gray-300 mt-5">—</span>
+          <span className="text-gray-300 mt-5">â€”</span>
           <div className="flex-1">
             <label className="text-xs text-gray-400 mb-1 block">Max</label>
             <div className="flex items-center border border-gray-200 rounded-xl px-3 py-2">

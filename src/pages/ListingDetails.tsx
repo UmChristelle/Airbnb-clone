@@ -35,14 +35,14 @@ export default function ListingDetails() {
               <span className="font-semibold text-gray-800">{listing.rating.toFixed(1)}</span>
               <span>({listing.reviewCount} reviews)</span>
             </div>
-            <span>·</span>
+            <span>Â·</span>
             <div className="flex items-center gap-1">
               <MapPin className="w-3.5 h-3.5 text-rose-400" />
               <span>{listing.city}, {listing.country}</span>
             </div>
             {listing.host.isSuperhost && (
               <>
-                <span>·</span>
+                <span>Â·</span>
                 <div className="flex items-center gap-1 text-rose-500">
                   <Award className="w-3.5 h-3.5" />
                   <span className="font-medium">Superhost</span>
@@ -80,9 +80,9 @@ export default function ListingDetails() {
               <h2 className="text-lg font-semibold text-gray-900">Hosted by {listing.host.name}</h2>
               <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
                 <span className="flex items-center gap-1"><Bed className="w-3.5 h-3.5" /> {listing.bedrooms} bedroom{listing.bedrooms !== 1 ? 's' : ''}</span>
-                <span>·</span>
+                <span>Â·</span>
                 <span className="flex items-center gap-1"><Bath className="w-3.5 h-3.5" /> {listing.bathrooms} bathroom{listing.bathrooms !== 1 ? 's' : ''}</span>
-                <span>·</span>
+                <span>Â·</span>
                 <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {listing.maxGuests} guests</span>
               </div>
             </div>

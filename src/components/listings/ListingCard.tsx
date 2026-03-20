@@ -68,9 +68,9 @@ export default function ListingCard({ listing }: ListingCardProps) {
 
           <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
             <span>{listing.bedrooms} bed{listing.bedrooms !== 1 ? 's' : ''}</span>
-            <span>·</span>
+            <span>Â·</span>
             <span>{listing.bathrooms} bath{listing.bathrooms !== 1 ? 's' : ''}</span>
-            <span>·</span>
+            <span>Â·</span>
             <span>Up to {listing.maxGuests} guests</span>
           </div>
 

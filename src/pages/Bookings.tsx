@@ -18,7 +18,7 @@ export default function Bookings() {
   if (!isAuthenticated) {
     return (
       <div className="text-center py-20">
-        <div className="text-5xl mb-4">🔒</div>
+        <div className="text-5xl mb-4">ðŸ”’</div>
         <h2 className="text-xl font-semibold text-gray-700 mb-2">Login required</h2>
         <p className="text-gray-400 text-sm mb-6">You need to be logged in to view your bookings</p>
         <button onClick={() => navigate('/login')}
@@ -43,7 +43,7 @@ export default function Bookings() {
 
       {bookings.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-3xl border border-gray-100">
-          <div className="text-5xl mb-4">🏡</div>
+          <div className="text-5xl mb-4">ðŸ¡</div>
           <h3 className="text-lg font-semibold text-gray-700 mb-2">No bookings yet</h3>
           <p className="text-gray-400 text-sm mb-6">Start exploring and book your perfect stay</p>
           <button onClick={() => navigate('/')}
@@ -75,7 +75,7 @@ export default function Bookings() {
                     <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
                       <div className="flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-rose-400" />
-                        <span>{booking.checkIn} → {booking.checkOut}</span>
+                        <span>{booking.checkIn} â†’ {booking.checkOut}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <Users className="w-3.5 h-3.5 text-rose-400" />

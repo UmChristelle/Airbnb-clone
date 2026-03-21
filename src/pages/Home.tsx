@@ -36,41 +36,39 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero */}
-      <div className="relative rounded-3xl overflow-hidden mb-8 bg-gradient-to-br from-rose-500 via-rose-400 to-orange-300 px-8 py-16 text-white">
+      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden mb-6 sm:mb-8 bg-gradient-to-br from-rose-500 via-rose-400 to-orange-300 px-6 sm:px-8 py-10 sm:py-16 text-white">
         <div className="relative z-10 max-w-lg">
-          <h1 className="text-4xl font-bold mb-3 leading-tight">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3 leading-tight">
             Find your perfect stay
           </h1>
-          <p className="text-rose-100 text-lg">
+          <p className="text-rose-100 text-base sm:text-lg">
             Discover unique homes and experiences around the world
           </p>
         </div>
         <div className="absolute right-8 bottom-0 opacity-10">
-          <Building2 className="w-48 h-48 text-white" />
+          <Building2 className="w-32 h-32 sm:w-48 sm:h-48 text-white" />
         </div>
       </div>
 
-      {/* Destinations */}
-      <div className="mb-8">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2">
           <MapPin className="w-4 h-4 text-rose-500" />
           Popular destinations
         </h2>
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide">
           {POPULAR_DESTINATIONS.map((dest) => {
             const Icon = dest.icon;
             return (
               <button
                 key={dest.placeId}
                 onClick={() => setFilters({ location: dest.placeId, searchQuery: '' })}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full border text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
                   activePlaceId === dest.placeId
                     ? 'bg-rose-500 text-white border-rose-500 shadow-md'
                     : 'bg-white text-gray-600 border-gray-200 hover:border-rose-300 hover:text-rose-500'
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 {dest.name}
               </button>
             );
@@ -78,19 +76,15 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
         <aside className="w-full lg:w-72 shrink-0">
           <FilterPanel />
         </aside>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           {isLoading ? (
             <Loader />
           ) : isError ? (
-            <ErrorState
-              message={(error as Error)?.message}
-              onRetry={() => refetch()}
-            />
+            <ErrorState message={(error as Error)?.message} onRetry={() => refetch()} />
           ) : filtered.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -104,7 +98,7 @@ export default function Home() {
               <p className="text-sm text-gray-500 mb-4">
                 {filtered.length} stay{filtered.length !== 1 ? 's' : ''} found
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                 {filtered.map((listing) => (
                   <ListingCard key={listing.id} listing={listing} />
                 ))}

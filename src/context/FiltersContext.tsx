@@ -6,7 +6,7 @@ const defaultFilters: FilterState = {
   minPrice: 0,
   maxPrice: 10000,
   minRating: 0,
-  location: 'ChIJD7fiBh9u5kcRYJSMaMOCCwQ',
+  location: '',
   searchQuery: '',
 };
 
@@ -19,27 +19,13 @@ interface FiltersContextType {
 const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
 
 export function FiltersProvider({ children }: { children: ReactNode }) {
-  const [filters, setFiltersState] = useState<FilterState>(() => {
-    try {
-      const stored = localStorage.getItem('stayfinder_filters');
-      return stored ? { ...defaultFilters, ...JSON.parse(stored) } : defaultFilters;
-    } catch {
-      return defaultFilters;
-    }
-  });
+  const [filters, setFiltersState] = useState<FilterState>(defaultFilters);
 
   const setFilters = (newFilters: Partial<FilterState>) => {
-    setFiltersState((prev) => {
-      const updated = { ...prev, ...newFilters };
-      localStorage.setItem('stayfinder_filters', JSON.stringify(updated));
-      return updated;
-    });
+    setFiltersState((prev) => ({ ...prev, ...newFilters }));
   };
 
-  const resetFilters = () => {
-    localStorage.removeItem('stayfinder_filters');
-    setFiltersState(defaultFilters);
-  };
+  const resetFilters = () => setFiltersState(defaultFilters);
 
   return (
     <FiltersContext.Provider value={{ filters, setFilters, resetFilters }}>

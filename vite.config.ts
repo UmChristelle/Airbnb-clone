@@ -5,13 +5,13 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
+      '/rapidapi': {
         target: 'https://airbnb19.p.rapidapi.com',
         changeOrigin: true,
         secure: true,
-        rewrite: (path) => path,
+        rewrite: (path) => path.replace(/^\/rapidapi/, ''),
         headers: {
-          'x-rapidapi-key': 'fd31f45be5msh8a17df19bd6bd2bp16b6acjsn525b54d714bb',
+          'x-rapidapi-key': '10bd37f868mshec5d8b8d5a3a53ep1ab319jsn036b4e5fca8e',
           'x-rapidapi-host': 'airbnb19.p.rapidapi.com',
         },
       },

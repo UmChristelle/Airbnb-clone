@@ -1,11 +1,14 @@
 import axios from 'axios';
 
-console.log('API Key loaded:', import.meta.env.VITE_RAPID_API_KEY ? 'YES' : 'NO - CHECK .env FILE');
+const API_KEY = import.meta.env.VITE_RAPID_API_KEY;
+const API_HOST = import.meta.env.VITE_RAPID_API_HOST;
 
 const api = axios.create({
-  baseURL: '/rapidapi',
+  baseURL: 'https://airbnb19.p.rapidapi.com',
   headers: {
     'Content-Type': 'application/json',
+    'x-rapidapi-key': API_KEY,
+    'x-rapidapi-host': API_HOST,
   },
 });
 

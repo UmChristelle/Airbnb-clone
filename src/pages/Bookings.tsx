@@ -17,7 +17,7 @@ export default function Bookings() {
 
   if (!isAuthenticated) {
     return (
-      <div className="text-center py-20">
+      <div className="text-center py-20 px-4">
         <div className="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-4">
           <Lock className="w-8 h-8 text-rose-300" />
         </div>
@@ -36,16 +36,18 @@ export default function Bookings() {
     toast.success('Booking cancelled');
   };
 
+  const activeBookings = bookings.filter((b) => b.status !== 'cancelled');
+
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Your bookings</h1>
         <p className="text-gray-400 text-sm mt-1">
-          {bookings.length} booking{bookings.length !== 1 ? 's' : ''} total
+          {activeBookings.length} booking{activeBookings.length !== 1 ? 's' : ''} total
         </p>
       </div>
 
-      {bookings.length === 0 ? (
+      {activeBookings.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-3xl border border-gray-100">
           <div className="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-4">
             <Home className="w-8 h-8 text-rose-300" />
@@ -59,14 +61,14 @@ export default function Bookings() {
         </div>
       ) : (
         <div className="space-y-4">
-          {bookings.map((booking) => {
+          {activeBookings.map((booking) => {
             const status = statusConfig[booking.status];
             const StatusIcon = status.icon;
             return (
               <div key={booking.id}
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                 <div className="flex flex-col sm:flex-row">
-                  <div className="w-full sm:w-40 h-40 sm:h-auto shrink-0">
+                  <div className="w-full sm:w-40 h-48 sm:h-auto shrink-0">
                     <img
                       src={booking.listingImage || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400'}
                       alt={booking.listingName}
@@ -77,7 +79,7 @@ export default function Bookings() {
                       }}
                     />
                   </div>
-                  <div className="flex-1 p-5">
+                  <div className="flex-1 p-4 sm:p-5">
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <h3 className="font-semibold text-gray-900 line-clamp-1">{booking.listingName}</h3>
                       <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${status.bg} ${status.color} shrink-0`}>
@@ -85,25 +87,23 @@ export default function Bookings() {
                         {status.label}
                       </div>
                     </div>
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
+                    <div className="flex flex-wrap gap-3 text-sm text-gray-500 mb-4">
                       <div className="flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-rose-400" />
-                        <span>{booking.checkIn} → {booking.checkOut}</span>
+                        <span className="text-xs sm:text-sm">{booking.checkIn} → {booking.checkOut}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <Users className="w-3.5 h-3.5 text-rose-400" />
-                        <span>{booking.guests} guest{booking.guests !== 1 ? 's' : ''}</span>
+                        <span className="text-xs sm:text-sm">{booking.guests} guest{booking.guests !== 1 ? 's' : ''}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-gray-900">${booking.totalPrice}</span>
-                      {booking.status !== 'cancelled' && (
-                        <button onClick={() => handleCancel(booking.id)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-500 border border-red-200 rounded-lg hover:bg-red-50 transition-colors">
-                          <X className="w-3 h-3" />
-                          Cancel
-                        </button>
-                      )}
+                      <button onClick={() => handleCancel(booking.id)}
+                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-500 border border-red-200 rounded-lg hover:bg-red-50 transition-colors">
+                        <X className="w-3 h-3" />
+                        Cancel
+                      </button>
                     </div>
                   </div>
                 </div>

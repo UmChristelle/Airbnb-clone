@@ -1,73 +1,122 @@
-# React + TypeScript + Vite
+markdown#  StayFinder — Airbnb Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-grade accommodation booking platform built with React + Vite, inspired by Airbnb. This project demonstrates advanced state management, API integration, caching, and responsive UI design.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+##  Live Demo
+> [(https://airbnb-clone-taupe-beta.vercel.app/)]
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+##  Tech Stack
 
-## Expanding the ESLint configuration
+| Layer | Technology |
+|---|---|
+| Frontend | React + TypeScript + Vite |
+| Styling | Tailwind CSS |
+| Routing | React Router v6 |
+| Server State | TanStack Query (React Query) |
+| Global State | Context API + Zustand |
+| HTTP Client | Axios |
+| API | Airbnb19 via RapidAPI |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+##  Project Structure
+```
+src/
+├── components/
+│   ├── layout/         # Navbar, Layout
+│   ├── listings/       # ListingCard, FilterPanel
+│   ├── bookings/       # BookingForm
+│   └── ui/             # Loader, ErrorState, SearchBar
+├── context/            # FavoritesContext, FiltersContext
+├── hooks/              # useListings, useListingDetails
+├── pages/              # Home, ListingDetails, Bookings, Favorites, Login
+├── services/           # api.ts, listingsService.ts
+├── store/              # useAuthStore, useBookingStore
+├── types/              # TypeScript interfaces
+└── utils/              # transformers.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+##  Setup Instructions
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone the repository
+```bash
+git clone https://github.com/UmChristelle/Airbnb-clone
+cd airbnb-clone
 ```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+Create a `.env` file in the root:
+```bash
+VITE_RAPIDAPI_KEY=your_rapidapi_key_here
+VITE_RAPID_API_HOST=airbnb19.p.rapidapi.com
+VITE_BASE_URL=https://airbnb19.p.rapidapi.com
+```
+>  Get your free API key at [rapidapi.com/DataCrawler/api/airbnb19](https://rapidapi.com/DataCrawler/api/airbnb19)
+
+### 4. Run the app
+```bash
+npm run dev
+```
+
+---
+
+##  API Integration
+
+- **Base URL:** `https://airbnb19.p.rapidapi.com`
+- **Endpoint:** `GET /api/v1/searchPropertyByLocationV2`
+- **Auth:** `x-rapidapi-key` header from `.env`
+- Centralized Axios instance in `src/services/api.ts`
+- Interceptors handle 401, 403, 429 errors gracefully
+- TanStack Query manages caching with `staleTime`
+
+---
+
+##  Routes
+
+| Path | Page | Protected |
+|---|---|---|
+| `/` | Listings Feed | No |
+| `/listing/:id` | Listing Details | No |
+| `/bookings` | Bookings Dashboard | ✅ Yes |
+| `/favorites` | Saved Listings | No |
+| `/login` | Authentication | No |
+
+---
+
+##  State Management
+
+| Type | Tool | Used For |
+|---|---|---|
+| Local State | `useState` | Forms, UI interactions |
+| Global State | Context API | Favorites, Filters |
+| Advanced State | Zustand | Booking logic, Auth |
+| Server State | TanStack Query | Listings, Listing details |
+
+---
+
+##  Features
+
+-  Search listings by location
+-  Filter by price, rating, and location
+-  Favorites persisted in localStorage
+-  Booking form with validation
+-  Protected routes
+-  Cached API data for instant navigation
+-  Fully responsive
+-  Graceful error handling for API failures
+
+---
+
+##  Author
+**Your Name** — [GitHub](https://github.com/UmChristelle/Airbnb-clone)

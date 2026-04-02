@@ -6,18 +6,19 @@ import FilterPanel from '../components/listings/FilterPanel';
 import Loader from '../components/ui/Loader';
 import ErrorState from '../components/ui/ErrorState';
 import { MapPin, Landmark, Building2, Trees, Globe } from 'lucide-react';
+import { DEFAULT_PLACE_ID, POPULAR_DESTINATIONS } from '../constants/places';
 
-const POPULAR_DESTINATIONS = [
-  { name: 'Paris', placeId: 'ChIJD7fiBh9u5kcRYJSMaMOCCwQ', icon: Landmark },
-  { name: 'New York', placeId: 'ChIJOwg_06VPwokRYv534QaPC8g', icon: Building2 },
-  { name: 'Tokyo', placeId: 'ChIJ51cu8IcbXWARiRtXIothAS4', icon: Globe },
-  { name: 'London', placeId: 'ChIJdd4hrwug2EcRmSrV3Vo6llI', icon: Landmark },
-  { name: 'Bali', placeId: 'ChIJoQ8Q6NNB0S0RkOYkS7EPkSQ', icon: Trees },
-];
+const destinationIcons = {
+  Paris: Landmark,
+  'New York': Building2,
+  Tokyo: Globe,
+  London: Landmark,
+  Bali: Trees,
+} as const;
 
 export default function Home() {
   const { filters, setFilters } = useFilters();
-  const activePlaceId = filters.location || 'ChIJD7fiBh9u5kcRYJSMaMOCCwQ';
+  const activePlaceId = filters.location || DEFAULT_PLACE_ID;
   const { data: listings, isLoading, isError, error, refetch } = useListings(activePlaceId);
 
   const filtered = useMemo(() => {
@@ -57,7 +58,7 @@ export default function Home() {
         </h2>
         <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide">
           {POPULAR_DESTINATIONS.map((dest) => {
-            const Icon = dest.icon;
+            const Icon = destinationIcons[dest.name];
             return (
               <button
                 key={dest.placeId}

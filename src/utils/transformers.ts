@@ -1,6 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Listing } from '../types';
 
+function isListingLike(item: any) {
+  return Boolean(
+    item &&
+      typeof item === 'object' &&
+      (item.listing ||
+        item.id ||
+        item.title ||
+        item.name ||
+        item.structuredDisplayPrice ||
+        item.contextualPictures ||
+        item.demandStayListing)
+  );
+}
+
+function findListingCollection(node: any): any[] {
+  if (!node) return [];
+
+  if (Array.isArray(node)) {
+    if (node.some(isListingLike)) return node;
+
+    for (const item of node) {
+      const nested = findListingCollection(item);
+      if (nested.length > 0) return nested;
+    }
+
+    return [];
+  }
+
+  if (typeof node === 'object') {
+    const priorityKeys = ['results', 'list', 'items', 'searchResults', 'data'];
+    for (const key of priorityKeys) {
+      if (key in node) {
+        const nested = findListingCollection(node[key]);
+        if (nested.length > 0) return nested;
+      }
+    }
+
+    for (const value of Object.values(node)) {
+      const nested = findListingCollection(value);
+      if (nested.length > 0) return nested;
+    }
+  }
+
+  return [];
+}
+
 export function transformListing(raw: any): Listing {
   const listing = raw?.listing ?? raw;
   const pictures = raw?.contextualPictures ?? listing?.contextualPictures ?? [];
@@ -73,17 +119,7 @@ export function transformListing(raw: any): Listing {
 }
 
 export function transformListings(data: any): Listing[] {
-  const list =
-    data?.data?.list ??
-    data?.data?.results ??
-    data?.list ??
-    data?.results ??
-    data?.data ??
-    [];
-
-  console.log('API raw response:', JSON.stringify(data).slice(0, 500));
-  console.log('Extracted list length:', Array.isArray(list) ? list.length : 'not array');
-
+  const list = findListingCollection(data);
   if (!Array.isArray(list)) return [];
   return list.map(transformListing).filter((l) => l.id && l.name);
 }
